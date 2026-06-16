@@ -1,0 +1,13 @@
+=== <slug> ===
+
+--- DECISIONS ---
+
+
+--- COMMANDS ---
+
+
+--- CONTEXT ---
+
+
+--- OPEN ---
+
