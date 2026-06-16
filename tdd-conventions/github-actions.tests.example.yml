@@ -1,0 +1,60 @@
+# Фрагмент для .github/workflows/tests.yml
+# Скопируйте в репозиторий; задайте working-directory, если сервис в подкаталоге.
+
+name: Tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+env:
+  # Каталог с pyproject.toml относительно корня репо
+  SERVICE_PATH: .
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        working-directory: ${{ env.SERVICE_PATH }}
+        run: pip install "poetry==1.8.3"
+
+      - name: Install dependencies (with dev)
+        working-directory: ${{ env.SERVICE_PATH }}
+        run: poetry install --no-interaction --no-ansi
+
+      - name: Run tests with coverage
+        working-directory: ${{ env.SERVICE_PATH }}
+        run: |
+          poetry run pytest \
+            --cov=src \
+            --cov-report=term-missing \
+            --cov-report=xml:coverage.xml \
+            --junitxml=report.xml
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage
+          path: ${{ env.SERVICE_PATH }}/coverage.xml
+
+      - name: Upload JUnit report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: junit
+          path: ${{ env.SERVICE_PATH }}/report.xml
+
+# Опционально: публикация в Codecov (нужен CODECOV_TOKEN)
+#      - uses: codecov/codecov-action@v4
+#        with:
+#          files: coverage.xml
+#          fail_ci_if_error: false
