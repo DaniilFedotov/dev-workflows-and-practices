@@ -1,2 +1,13 @@
-# dev-workflows-and-practices
-A curated collection of my personal engineering workflows, development practices, and knowledge management systems. Contains actionable frameworks for robust work logging, context retention, and TDD conventions designed to boost developer autonomy and code quality.
+# Developer Workflows & Practices
+
+В этом репозитории собрана структурированная база рабочих процессов и инженерных практик.
+
+## 📂 Структура репозитория
+
+*   **[`workflow-logging/`](./workflow-logging)** — подход к ежедневному логирования рабочих процессов.
+*   **[`tdd-conventions/`](./tdd-conventions)** — философия, соглашения и практические руководства по разработке через тестирование (TDD) как инструменту проектирования архитектуры.
+
+## 🚀 Почему это важно для работы
+*   **Автономность:** Высокий уровень удержания контекста позволяет быстрее погружаться в задачи и реже отвлекать команду для синхронизации.
+*   **Предсказуемость:** Структурированные логи гарантируют, что ни одно краевое решение или важный технический компромисс не будут утеряны.
+*   **Качество:** Конвенции TDD помогают поддерживать кодовую базу расширяемой, чистой и устойчивой к регрессиям.
