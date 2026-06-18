@@ -1,0 +1,15 @@
+{{- if .Values.dashboards.enabled }}
+{{- range $path, $_ := .Files.Glob "dashboards/*.json" }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ printf "%s-%s-dashboard" $.Chart.Name (base $path | trimSuffix ".json" | replace "_" "-" | lower) | trunc 63 | trimSuffix "-" }}
+  labels:
+    {{ $.Values.dashboards.label }}: {{ $.Values.dashboards.labelValue | quote }}
+    app.kubernetes.io/component: dashboards
+data:
+  {{ base $path }}: |
+{{ $.Files.Get $path | nindent 4 }}
+{{- end }}
+{{- end }}
